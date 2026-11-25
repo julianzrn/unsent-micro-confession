@@ -1,24 +1,32 @@
-"""Entry for make.fun's "Unsent: The Micro-Confession Sprint".
+"""Entry for make.fun competition: u-boothlord-unsent-the-micro-confession-sprint-8c6596ba.
 
 Running this program writes the entry text to /output/entry.txt.
 """
 
 from pathlib import Path
 
-TO_LINE = "To: my brother"
-CONFESSION = "I sold the boat Dad left us. I told everyone it was falling apart. It wasn't. "
-REASON = "I just couldn't afford the slip fees, and I couldn't afford you knowing that either."
-
-ENTRY = TO_LINE + "\n" + CONFESSION + REASON
-
 OUTPUT_PATH = Path("/output/entry.txt")
 
+HEADER = "To: my brother\n"
+OPENING = "I sold the boat Dad left us. I told everyone it was falling apart. "
+LANDING = (
+    "It wasn't. I just couldn't afford the slip fees, and I couldn't afford "
+    "you knowing that either."
+)
 
-def write_entry(path: Path = OUTPUT_PATH) -> None:
-    """Write the entry text to the output file, with no trailing newline."""
+ENTRY = HEADER + OPENING + LANDING
+
+
+def write_entry(text: str, path: Path) -> None:
+    """Write *text* to *path* as UTF-8, with no trailing newline."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(ENTRY, encoding="utf-8")
+    path.write_text(text, encoding="utf-8")
+
+
+def main() -> None:
+    """Write the entry text to the fixed output path."""
+    write_entry(ENTRY, OUTPUT_PATH)
 
 
 if __name__ == "__main__":
-    write_entry()
+    main()
